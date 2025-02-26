@@ -1,0 +1,20 @@
+import {
+    MDBCol,
+    MDBBtn,
+    MDBBtnGroup
+  } from "mdb-react-ui-kit";
+  
+export default function FilterBy({filterFunction}) {
+    function handleFilter(val){
+        filterFunction(val);
+    }
+    return (
+        <MDBCol size="4">
+            <h5>Filter by Status :</h5>
+            <MDBBtnGroup>
+                <MDBBtn color='success' onClick={() => handleFilter("Active")}>Active</MDBBtn>
+                <MDBBtn color='danger' style={{ marginLeft: "2px" }} onClick={() => handleFilter("Inactive")}>Inactive</MDBBtn>
+            </MDBBtnGroup>
+        </MDBCol>
+    )
+}
