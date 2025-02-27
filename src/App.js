@@ -13,6 +13,9 @@ import Form from './components/Form.jsx';
 import TableHeader from './components/TableHeader.jsx';
 import TableRows from './components/TableRows.jsx';
 import Language from './components/Language.jsx';
+import Header from './components/Header.jsx';
+import logo from './assets/adcblogo.png';
+import Footer from './components/Footer.jsx';
 
 function App() {
   const startVal = 0;
@@ -88,15 +91,15 @@ function App() {
   };
 
   return (
-    <MDBContainer>
-      <Form handleSearch={handleSearch} setValue={setValue} handleReset={handleReset} value={value}></Form>
-      <MDBRow>
+    <MDBContainer className="mt-4">
+      <Header title="React JS Tutorial" logo={logo}></Header>
+      <MDBRow className="mt-3">
+        <Form handleSearch={handleSearch} setValue={setValue} handleReset={handleReset} value={value}></Form>
         <SortBy sortVal={sortValue} sortFunction={updateSortValue}></SortBy>
         <FilterBy filterFunction={handleFilter}></FilterBy>
         <Language callUpdateDirection={updateDirection}></Language>
       </MDBRow>
       <div style={{ marginTop: "10px" }}>
-        <h2 className='text-center'>search, filter, sort and pagination using JSON fake rest API</h2>
         <MDBContainer className="scroll-container"
           ref={containerRef}
           onScroll={handleScroll}>
@@ -120,7 +123,9 @@ function App() {
             </MDBCol>
           </MDBRow>
         </MDBContainer>
+        <Footer></Footer>  
       </div>
+      
     </MDBContainer>
   )
 }

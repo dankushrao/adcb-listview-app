@@ -1,4 +1,5 @@
 import {
+    MDBCol,
     MDBBtn
 } from "mdb-react-ui-kit";
 
@@ -17,12 +18,12 @@ export default function Form({ handleSearch, setValue, handleReset,value }) {
     }
 
     return (
+        <MDBCol size="4">
         <form
             style={{
                 margin: "auto",
-                padding: "15px",
                 maxWidth: "400px",
-                alignContent: "center"
+                alignContent: "flex-start"
             }}
             className="d-flex input-group w-auto"
             onSubmit={handleSearchTmp}
@@ -37,5 +38,6 @@ export default function Form({ handleSearch, setValue, handleReset,value }) {
             <MDBBtn type="submit" color='dark'>Search</MDBBtn>
             <MDBBtn className='mx-2' color="info" onClick={() => handleResetTmp()}>Reset</MDBBtn>
         </form>
+        </MDBCol>
     )
 }

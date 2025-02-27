@@ -9,11 +9,10 @@ export default function SortBy({sortVal, sortFunction}) {
     }
     return (
         <MDBCol size="4">
-            <h5>Sort By:</h5>
-            <select style={{ width: "50%", borderRadius: "2px", height: "35px" }}
+            <select style={{ width: "80%", borderRadius: "2px", height: "35px" }}
                 onChange={updateSortValue}
                 value={sortVal}>
-                <option value="" key="0">Select Select Value..</option>
+                <option value="" key="0">Sort By..</option>
                 {sortOptions.map((item, index) => (
                     <option value={item} key={index}>{item}</option>
                 ))}

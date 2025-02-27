@@ -9,11 +9,10 @@ export default function Language({ callUpdateDirection }) {
         callUpdateDirection(val);
     }
     return (
-        <MDBCol size="4">
-            <h5>Select Language :</h5>
+        <MDBCol size="2">
             <MDBBtnGroup>
-                <MDBBtn color='success' onClick={() => updateDirection("ltr")}>English</MDBBtn>
-                <MDBBtn color='danger' style={{ marginLeft: "2px", marginRight: "2px" }} onClick={() => updateDirection("rtl")}>Arabic</MDBBtn>
+                <MDBBtn color='light' onClick={() => updateDirection("ltr")}>English</MDBBtn>
+                <MDBBtn color='link' style={{ marginLeft: "2px", marginRight: "2px" }} onClick={() => updateDirection("rtl")}>Arabic</MDBBtn>
             </MDBBtnGroup>
         </MDBCol>
     )
