@@ -16,6 +16,7 @@ import Language from './components/Language.jsx';
 import Header from './components/Header.jsx';
 import logo from './assets/adcblogo.png';
 import Footer from './components/Footer.jsx';
+import Theme from './components/Theme.jsx';
 
 function App() {
   const startVal = 0;
@@ -27,6 +28,7 @@ function App() {
   const [start, setStart] = useState(startVal);
   const [end, setEnd] = useState(incrementBy);
   const [direction, setDirection] = useState("ltr");
+  const [theme, setTheme] = useState("Light");
 
   const handleScroll = () => {
     if (!containerRef.current) return;
@@ -48,6 +50,10 @@ function App() {
 
   function updateDirection(val) {
     setDirection(val);
+  }
+
+  function UpdateTheme(val) {
+    setTheme(val);
   }
 
   const loadUserData = async () => {
@@ -100,13 +106,15 @@ function App() {
         <Language callUpdateDirection={updateDirection}></Language>
       </MDBRow>
       <div style={{ marginTop: "10px" }}>
+        <MDBTable>
+          <TableHeader></TableHeader>
+        </MDBTable>
         <MDBContainer className="scroll-container"
           ref={containerRef}
           onScroll={handleScroll}>
           <MDBRow>
             <MDBCol size="12px">
               <MDBTable>
-                <TableHeader></TableHeader>
                 {data.length === 0 ? (
                   <MDBModalBody className='align-center mb-0'>
                     <tr>
@@ -116,16 +124,19 @@ function App() {
                 ) : (
                   data.map((item, index) =>
                   (
-                    <TableRows rowItem={item} rowIndex={index}></TableRows>
+                    <TableRows rowItem={item} rowIndex={index} theme={theme}></TableRows>
                   ))
                 )}
               </MDBTable>
             </MDBCol>
           </MDBRow>
         </MDBContainer>
-        <Footer></Footer>  
+        <MDBRow className="mt-3">
+          <Theme callUpdateTheme={UpdateTheme}></Theme>
+        </MDBRow>
+        <Footer ></Footer>
       </div>
-      
+
     </MDBContainer>
   )
 }
