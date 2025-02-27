@@ -13,7 +13,7 @@ export default function FilterBy({filterFunction}) {
             <h5>Filter by Status :</h5>
             <MDBBtnGroup>
                 <MDBBtn color='success' onClick={() => handleFilter("Active")}>Active</MDBBtn>
-                <MDBBtn color='danger' style={{ marginLeft: "2px" }} onClick={() => handleFilter("Inactive")}>Inactive</MDBBtn>
+                <MDBBtn color='danger' style={{ marginLeft: "2px" , marginRight: "2px"}} onClick={() => handleFilter("Inactive")}>Inactive</MDBBtn>
             </MDBBtnGroup>
         </MDBCol>
     )

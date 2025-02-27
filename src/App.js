@@ -1,10 +1,7 @@
-import './App.css';
 import axios from 'axios';
 import React, { useState, useEffect, useRef } from 'react';
 import {
   MDBTable,
-  MDBTableHead,
-  MDBTableBody,
   MDBRow,
   MDBCol,
   MDBContainer,
@@ -13,33 +10,46 @@ import {
 import SortBy from './components/SortBy.jsx';
 import FilterBy from './components/FilterBy.jsx';
 import Form from './components/Form.jsx';
+import TableHeader from './components/TableHeader.jsx';
+import TableRows from './components/TableRows.jsx';
+import Language from './components/Language.jsx';
 
 function App() {
+  const startVal = 0;
+  const incrementBy = 6;
   const [data, setData] = useState([]);
   const [value, setValue] = useState("");
   const [sortValue, setSortValue] = useState("");
   const containerRef = useRef(null);
+  const [start, setStart] = useState(startVal);
+  const [end, setEnd] = useState(incrementBy);
+  const [direction, setDirection] = useState("ltr");
 
   const handleScroll = () => {
     if (!containerRef.current) return;
     const { scrollTop, scrollHeight, clientHeight } = containerRef.current;
     if (scrollTop + clientHeight >= scrollHeight - 10) {
-      fetchMoreData();
+      setStart(end);
+      setEnd(end + incrementBy);
+      loadUserData();
     }
-  };
-
-  const fetchMoreData = () => {
-    console.log("Fetching more data...");
-    loadUserData();
   };
 
   useEffect(() => {
     loadUserData();
   }, []);
 
+  useEffect(() => {
+    document.documentElement.dir = direction;
+  }, [direction]);
+
+  function updateDirection(val) {
+    setDirection(val);
+  }
+
   const loadUserData = async () => {
     return await axios
-      .get(`http://localhost:5000/users`)
+      .get(`http://localhost:5000/users?_start=${start}&_end=${end}`)
       .then((response) => {
         setData((prevUsers) => [...prevUsers, ...response.data]);
       })
@@ -47,9 +57,11 @@ function App() {
   }
 
   const handleReset = async (e) => {
-    setData([]);
+    setStart(startVal);
+    setEnd(incrementBy);
     setValue("");
     setSortValue("");
+    setData([]);
     loadUserData();
   };
 
@@ -62,7 +74,6 @@ function App() {
   };
 
   const updateSortValue = async (e) => {
-    handleReset();
     let key = e.target.value;
     setSortValue(key);
     const sortedData = [...data].sort((a, b) => a[key].localeCompare(b[key]));
@@ -70,7 +81,6 @@ function App() {
   };
 
   const handleFilter = async (value) => {
-    handleReset();
     const filterredData = [...data].filter(item =>
       item.status?.toString().includes(value)
     );
@@ -80,6 +90,11 @@ function App() {
   return (
     <MDBContainer>
       <Form handleSearch={handleSearch} setValue={setValue} handleReset={handleReset} value={value}></Form>
+      <MDBRow>
+        <SortBy sortVal={sortValue} sortFunction={updateSortValue}></SortBy>
+        <FilterBy filterFunction={handleFilter}></FilterBy>
+        <Language callUpdateDirection={updateDirection}></Language>
+      </MDBRow>
       <div style={{ marginTop: "10px" }}>
         <h2 className='text-center'>search, filter, sort and pagination using JSON fake rest API</h2>
         <MDBContainer className="scroll-container"
@@ -88,17 +103,7 @@ function App() {
           <MDBRow>
             <MDBCol size="12px">
               <MDBTable>
-                <MDBTableHead dark>
-                  <tr>
-                    <th>no</th>
-                    <th>name</th>
-                    <th>email</th>
-                    <th>phone</th>
-                    <th>address</th>
-                    <th>id</th>
-                    <th>status</th>
-                  </tr>
-                </MDBTableHead>
+                <TableHeader></TableHeader>
                 {data.length === 0 ? (
                   <MDBModalBody className='align-center mb-0'>
                     <tr>
@@ -108,17 +113,7 @@ function App() {
                 ) : (
                   data.map((item, index) =>
                   (
-                    <MDBTableBody key={index}>
-                      <tr>
-                        <th scope='row'>{index + 1}</th>
-                        <td>{item.name}</td>
-                        <td>{item.email}</td>
-                        <td>{item.phone}</td>
-                        <td>{item.address}</td>
-                        <td>{item.id}</td>
-                        <td>{item.status}</td>
-                      </tr>
-                    </MDBTableBody>
+                    <TableRows rowItem={item} rowIndex={index}></TableRows>
                   ))
                 )}
               </MDBTable>
@@ -126,10 +121,6 @@ function App() {
           </MDBRow>
         </MDBContainer>
       </div>
-      <MDBRow>
-        <SortBy sortVal={sortValue} sortFunction={updateSortValue}></SortBy>
-        <FilterBy filterFunction={handleFilter}></FilterBy>
-      </MDBRow>
     </MDBContainer>
   )
 }

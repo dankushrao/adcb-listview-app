@@ -8,7 +8,7 @@ export default function SortBy({sortVal, sortFunction}) {
         sortFunction(val);
     }
     return (
-        <MDBCol size="8">
+        <MDBCol size="4">
             <h5>Sort By:</h5>
             <select style={{ width: "50%", borderRadius: "2px", height: "35px" }}
                 onChange={updateSortValue}
