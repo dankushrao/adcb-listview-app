@@ -11,8 +11,8 @@ export default function Language({ callUpdateDirection }) {
     return (
         <MDBCol size="2">
             <MDBBtnGroup>
-                <MDBBtn color='light' onClick={() => updateDirection("ltr")}>English</MDBBtn>
-                <MDBBtn color='link' style={{ marginLeft: "2px", marginRight: "2px" }} onClick={() => updateDirection("rtl")}>Arabic</MDBBtn>
+                <MDBBtn color='secondary' onClick={() => updateDirection("ltr")}>English</MDBBtn>
+                <MDBBtn color='primary' style={{ marginLeft: "2px", marginRight: "2px" }} onClick={() => updateDirection("rtl")}>Arabic</MDBBtn>
             </MDBBtnGroup>
         </MDBCol>
     )

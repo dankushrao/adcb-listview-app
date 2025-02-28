@@ -4,15 +4,15 @@ import {
     MDBBtnGroup
 } from "mdb-react-ui-kit";
 
-export default function Theme({ callUpdateTheme }) {
+export default function Theme({ callUpdateTheme,btnText}) {
     function updatTheme(val) {
-        callUpdateTheme(val);
+        callUpdateTheme(btnTxtVal);
     }
+    const btnTxtVal = btnText === "dark"? "light":"dark";
     return (
         <MDBCol size="4">
             <MDBBtnGroup>
-                <MDBBtn color='light' onClick={() => updatTheme("Light")}>Light</MDBBtn>
-                <MDBBtn color='dark' style={{ marginLeft: "2px", marginRight: "2px" }} onClick={() => updatTheme("Dark")}>Dark</MDBBtn>
+                <MDBBtn color={btnTxtVal} onClick={() => updatTheme()}>{btnTxtVal}</MDBBtn>
             </MDBBtnGroup>
         </MDBCol>
     )

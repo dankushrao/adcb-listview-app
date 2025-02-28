@@ -28,7 +28,7 @@ function App() {
   const [start, setStart] = useState(startVal);
   const [end, setEnd] = useState(incrementBy);
   const [direction, setDirection] = useState("ltr");
-  const [theme, setTheme] = useState("Light");
+  const [theme, setTheme] = useState("light");
 
   const handleScroll = () => {
     if (!containerRef.current) return;
@@ -132,7 +132,7 @@ function App() {
           </MDBRow>
         </MDBContainer>
         <MDBRow className="mt-3">
-          <Theme callUpdateTheme={UpdateTheme}></Theme>
+          <Theme callUpdateTheme={UpdateTheme} btnText={theme}></Theme>
         </MDBRow>
         <Footer ></Footer>
       </div>
